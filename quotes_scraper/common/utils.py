@@ -22,7 +22,7 @@ def insert_query(query: str, base_url: str = BASE_URL) -> str:
     return result_url
 
 
-def insert_page_number(base_url: str = BASE_URL, page_number: int = 1) -> str:
+def insert_page_number(page_number: int = 1, base_url: str = BASE_URL) -> str:
     """Inserts page number into given base_url
 
     Args:
@@ -33,7 +33,7 @@ def insert_page_number(base_url: str = BASE_URL, page_number: int = 1) -> str:
         str: URL with page number parameter set.
     """
 
-    page_number_string = str(page_number)
+    page_number_string = str(page_number) if page_number else "1"
 
     result_url = base_url.replace(PAGE_PLACEHOLDER, page_number_string)
 

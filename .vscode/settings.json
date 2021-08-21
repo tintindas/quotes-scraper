@@ -1,0 +1,6 @@
+{
+	"python.testing.pytestArgs": ["quotes_scraper"],
+	"python.testing.unittestEnabled": false,
+	"python.testing.nosetestsEnabled": false,
+	"python.testing.pytestEnabled": true
+}
