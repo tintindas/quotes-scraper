@@ -1,6 +1,6 @@
 # Quotes Scraper
 
-Scrape quotes based on author (or search term) from goodreads.
+Scrape quotes based on author (or search term) from Goodreads.
 
 <!-- TODO -->
 
@@ -9,6 +9,7 @@ Scrape quotes based on author (or search term) from goodreads.
 - [ ] Implement core functionality.
 - [ ] Format scraped data into CSV, JSON etc.
 - [ ] Save to database or locally.
+- [ ] CLI
 - [ ] Issue template to add author quotes to
 - [ ] Workflow to run scraper on issue approval.
 - [ ] Add documentation.
