@@ -1,4 +1,6 @@
 from .constants import BASE_URL
+from .constants import PAGE_PLACEHOLDER
+from .constants import QUERY_PLACEHOLDER
 
 
 def insert_query(query: str, base_url: str = BASE_URL) -> str:
@@ -15,7 +17,7 @@ def insert_query(query: str, base_url: str = BASE_URL) -> str:
     query_words = query.split(" ")
     query_string = "+".join(query_words)
 
-    result_url = base_url.replace("[QUERY]", query_string)
+    result_url = base_url.replace(QUERY_PLACEHOLDER, query_string)
 
     return result_url
 
@@ -33,6 +35,6 @@ def insert_page_number(base_url: str = BASE_URL, page_number: int = 1) -> str:
 
     page_number_string = str(page_number)
 
-    result_url = base_url.replace("[PAGE]", page_number_string)
+    result_url = base_url.replace(PAGE_PLACEHOLDER, page_number_string)
 
     return result_url
