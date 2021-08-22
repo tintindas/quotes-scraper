@@ -1,4 +1,4 @@
-import pytest
+from pytest import raises
 from ..common import utils
 from ..common.constants import PAGE_PLACEHOLDER, QUERY_PLACEHOLDER, BASE_URL
 
@@ -17,7 +17,7 @@ def test_insert_query_without_input() -> None:
     """Should throw TypeError when insert query is called without any arguments.
     """
 
-    with pytest.raises(TypeError):
+    with raises(TypeError):
         utils.insert_query()
 
 
