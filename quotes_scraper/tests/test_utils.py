@@ -68,3 +68,18 @@ def test_insert_page_number_with_base_url() -> None:
 
     assert utils.insert_page_number(
         2, "prefix [PAGE] suffix") == "prefix 2 suffix"
+
+
+# ** ---------------------------- Strip Quote Tests ---------------------------- ** #
+def test_strip_quotes_with_input_text_with_quotes() -> None:
+    """Should return string without starting or ending quotes.
+    """
+
+    assert utils.strip_quotes('"Hello World"') == "Hello World"
+
+
+def test_strip_quotes_with_input_without_quotes() -> None:
+    """Should return copy of input string.
+    """
+
+    assert utils.strip_quotes("Hello World") == "Hello World"

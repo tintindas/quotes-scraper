@@ -38,3 +38,15 @@ def insert_page_number(page_number: int = 1, base_url: str = BASE_URL) -> str:
     result_url = base_url.replace(PAGE_PLACEHOLDER, page_number_string)
 
     return result_url
+
+
+def strip_quotes(text: str) -> str:
+    """Removes quotes from the beginning and end of input string.
+
+    Args:
+        text (str): Text to be formatted.
+
+    Returns:
+        str: Input string minus any quotes at the start or the end of the string.
+    """
+    return text.removeprefix('"').removesuffix('"')
