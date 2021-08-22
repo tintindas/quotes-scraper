@@ -4,7 +4,7 @@ from typing import List
 import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import HTTPError
-from ..common import utils
+from ..common.utils import strip_quotes
 
 
 def get_page(url: str) -> BeautifulSoup:
@@ -46,11 +46,11 @@ def extract_quote_data(quote_element: Tag) -> Quote:
     Returns:
         Quote: Quote object with extacted data.
     """
-    if(quote_element.find("quoteText") == None):
+    if(quote_element.find("div", class_="quoteText") == None):
         raise ValueError
 
-    quote_text = [
-        string for string in quote_element.stripped_strings][0] if quote_element else None
+    quote_text = strip_quotes([
+        string for string in quote_element.stripped_strings][0]) if quote_element else None
     links = quote_element.find_all("a", class_="authorOrTitle")
     author = links[0].string if len(links) else None
     source = links[1].string if len(links) > 1 else None

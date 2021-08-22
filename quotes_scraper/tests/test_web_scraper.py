@@ -117,7 +117,7 @@ def test_extract_quote_data_without_source() -> None:
     quote = web_scraper.extract_quote_data(
         BeautifulSoup(quote_element_1, "html.parser"))
     assert type(quote) is Quote
-    assert quote.get_text() == '"Tomorrow may be hell, but today was a good writing day, and on the good writing days nothing else matters."'
+    assert quote.get_text() == "Tomorrow may be hell, but today was a good writing day, and on the good writing days nothing else matters."
     assert quote.get_author() == "Neil Gaiman"
     assert quote.get_source() == None
 
@@ -128,7 +128,7 @@ def test_extract_quote_data_with_source() -> None:
     quote = web_scraper.extract_quote_data(
         BeautifulSoup(quote_element_2, "html.parser"))
     assert type(quote) is Quote
-    assert quote.get_text() == '"She says nothing at all, but simply stares upward into the dark sky and watches, with sad eyes, the slow dance of the infinite stars."'
+    assert quote.get_text() == "She says nothing at all, but simply stares upward into the dark sky and watches, with sad eyes, the slow dance of the infinite stars."
     assert quote.get_author() == "Neil Gaiman"
     assert quote.get_source() == "Stardust"
 
