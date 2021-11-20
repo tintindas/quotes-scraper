@@ -1,3 +1,4 @@
+import logging
 from bs4.element import ResultSet, Tag
 from quotes_scraper.common.quote import Quote
 from typing import List
@@ -31,9 +32,9 @@ def extract_quote_elements(html: BeautifulSoup) -> ResultSet:
     Returns:
         List of BeautifulSoup objects.
     """
-    quotes_table = html.find("table", class_="tableList")
-    quote_elements = quotes_table.find_all(
-        "div", class_="quoteText") if quotes_table else ResultSet([])
+    quotes_table = html.find("div", class_="leftContainer")
+    quote_elements = quotes_table.select(
+        "div.quote.mediumText") if quotes_table else ResultSet([])
     return quote_elements
 
 
@@ -49,10 +50,25 @@ def extract_quote_data(quote_element: Tag) -> Quote:
     if(quote_element.find("div", class_="quoteText") == None):
         raise ValueError
 
-    quote_text = strip_quotes([
-        string for string in quote_element.stripped_strings][0]) if quote_element else None
-    links = quote_element.find_all("a", class_="authorOrTitle")
-    author = links[0].string if len(links) else None
-    source = links[1].string if len(links) > 1 else None
+    quote = quote_element.find("div", class_="quoteText")
 
-    return Quote(quote_text, author, source)
+    quote_text = strip_quotes([
+        string for string in quote.stripped_strings][0]) if quote else None
+    author = quote.find("span", class_="authorOrTitle").string.strip().strip(",") if quote.find(
+        "span", class_="authorOrTitle") else None
+    source = quote.find("a", class_="authorOrTitle").string.strip() if quote.find(
+        "a", class_="authorOrTitle") else None
+
+    tag_container = quote_element.select("div.greyText.smallText.left")[
+        0] if quote_element.select("div.greyText.smallText.left") else []
+    tag_elements = [tag.string for tag in tag_container.find_all("a")]
+
+    return Quote(quote_text, author, source, tag_elements)
+
+
+page = get_page(
+    "https://www.goodreads.com/quotes/search?utf8=%E2%9C%93&q=neil+gaiman&commit=Search")
+quote_elements = extract_quote_elements(page)
+# print(quote_elements)
+quote_data = extract_quote_data(quote_elements[0])
+print(quote_data)

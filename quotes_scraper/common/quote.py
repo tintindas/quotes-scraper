@@ -1,9 +1,13 @@
+from typing import List
+
+
 class Quote:
     text: str
     author: str
     source: str
+    tags: List
 
-    def __init__(self, text: str, author: str, source: str):
+    def __init__(self, text: str, author: str, source: str, tags: List):
         """Initialises quote object with text, author and source provided.
 
         Args:
@@ -14,6 +18,11 @@ class Quote:
         self.text = text
         self.author = author
         self.source = source
+        self.tags = tags
+
+    def __str__(self) -> str:
+        return f"""Quote {{\n\ttext: {self.text},\n\tauthor: {self.author},\n\tsource: {self.source},\n\ttags: {self.tags}\n}}
+        """
 
     def get_text(self) -> str:
         """Get quote text
@@ -62,3 +71,19 @@ class Quote:
             source (str): Source of quote
         """
         self.source = source
+
+    def get_tags(self) -> List:
+        """Get tags associated with quote.
+
+        Returns:
+            List: List of tags
+        """
+        return self.tags
+
+    def set_tags(self, tags: List) -> None:
+        """Set tags associated with quote
+
+        Args:
+            tags (List): List of tags
+        """
+        self.tags = tags
