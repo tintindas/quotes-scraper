@@ -34,7 +34,7 @@ def test_insert_query_with_base_input() -> None:
     """
 
     assert utils.insert_query(
-        "Terry Pratchett", "prefix [QUERY] suffix") == "prefix Terry+Pratchett suffix"
+        "Terry Pratchett", "prefix [QUERY] suffix") == "prefix terry+pratchett suffix"
 
 
 # ** ---------------------------- Insert Page Number Tests ---------------------------- ** #
@@ -75,7 +75,7 @@ def test_strip_quotes_with_input_text_with_quotes() -> None:
     """Should return string without starting or ending quotes.
     """
 
-    assert utils.strip_quotes('"Hello World"') == "Hello World"
+    assert utils.strip_quotes('“Hello World”') == "Hello World"
 
 
 def test_strip_quotes_with_input_without_quotes() -> None:
