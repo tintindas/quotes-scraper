@@ -1,3 +1,6 @@
+"""Utility functions
+    """
+
 from .constants import BASE_URL
 from .constants import PAGE_PLACEHOLDER
 from .constants import QUERY_PLACEHOLDER

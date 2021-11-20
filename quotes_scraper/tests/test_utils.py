@@ -1,6 +1,8 @@
-from pytest import raises
+"""Tests Utility functions
+    """
+
 from ..common import utils
-from ..common.constants import PAGE_PLACEHOLDER, QUERY_PLACEHOLDER, BASE_URL
+from ..common.constants import PAGE_PLACEHOLDER, QUERY_PLACEHOLDER
 
 # ** ---------------------------- Insert Query Tests ---------------------------- ** #
 
@@ -10,15 +12,8 @@ def test_insert_query_with_valid_input() -> None:
     """
 
     assert utils.insert_query(
-        "Neil Gaiman") == f"https://www.goodreads.com/quotes/search?commit=Search&page={PAGE_PLACEHOLDER}&q=neil+gaiman&utf8=%E2%9C%93"
-
-
-def test_insert_query_without_input() -> None:
-    """Should throw TypeError when insert query is called without any arguments.
-    """
-
-    with raises(TypeError):
-        utils.insert_query()
+        "Neil Gaiman") == f"https://www.goodreads.com/quotes/search\
+?commit=Search&page={PAGE_PLACEHOLDER}&q=neil+gaiman&utf8=%E2%9C%93"
 
 
 def test_insert_query_with_empty_input() -> None:
@@ -26,7 +21,8 @@ def test_insert_query_with_empty_input() -> None:
     """
 
     assert utils.insert_query(
-        "") == f"https://www.goodreads.com/quotes/search?commit=Search&page={PAGE_PLACEHOLDER}&q=&utf8=%E2%9C%93"
+        "") == f"https://www.goodreads.com/quotes/search?\
+commit=Search&page={PAGE_PLACEHOLDER}&q=&utf8=%E2%9C%93"
 
 
 def test_insert_query_with_base_input() -> None:
@@ -43,7 +39,8 @@ def test_insert_page_number_with_valid_input() -> None:
     """
 
     assert utils.insert_page_number(
-        4) == f"https://www.goodreads.com/quotes/search?commit=Search&page=4&q={QUERY_PLACEHOLDER}&utf8=%E2%9C%93"
+        4) == f"https://www.goodreads.com/quotes/search?\
+commit=Search&page=4&q={QUERY_PLACEHOLDER}&utf8=%E2%9C%93"
 
 
 def test_insert_page_number_without_input() -> None:
@@ -51,7 +48,8 @@ def test_insert_page_number_without_input() -> None:
     """
 
     assert utils.insert_page_number(
-    ) == f"https://www.goodreads.com/quotes/search?commit=Search&page=1&q={QUERY_PLACEHOLDER}&utf8=%E2%9C%93"
+    ) == f"https://www.goodreads.com/quotes/search?\
+commit=Search&page=1&q={QUERY_PLACEHOLDER}&utf8=%E2%9C%93"
 
 
 def test_insert_page_number_with_empty_input() -> None:
@@ -59,7 +57,8 @@ def test_insert_page_number_with_empty_input() -> None:
     """
 
     assert utils.insert_page_number(
-        "") == f"https://www.goodreads.com/quotes/search?commit=Search&page=1&q={QUERY_PLACEHOLDER}&utf8=%E2%9C%93"
+        "") == f"https://www.goodreads.com/quotes/search?\
+commit=Search&page=1&q={QUERY_PLACEHOLDER}&utf8=%E2%9C%93"
 
 
 def test_insert_page_number_with_base_url() -> None:
