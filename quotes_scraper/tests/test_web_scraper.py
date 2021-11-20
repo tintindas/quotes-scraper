@@ -5,59 +5,8 @@ from pytest import raises
 from requests import HTTPError
 from bs4 import BeautifulSoup
 from ..scraper import web_scraper
+from .mock_data.quotes_elements import quote_element_1, quote_element_2
 
-
-quote_element_1 = """<div class="quoteText">
-                "Tomorrow may be hell, but today was a good writing day, and on the good writing days nothing else matters."
-                <br/>
-                —
-                  <a class="authorOrTitle" href="/author/quotes/1221698.Neil_Gaiman" title="Neil Gaiman quotes">Neil Gaiman</a>
-</div>"""
-
-quote_element_2 = """
-<div class="quoteText">
-                "She says nothing at all, but simply stares upward into the dark sky and watches, with sad eyes, the slow dance of the infinite stars."
-                <br/>
-                —
-                  <a class="authorOrTitle" href="/author/quotes/1221698.Neil_Gaiman" title="Neil Gaiman quotes">Neil Gaiman</a>
-                  (<a class="authorOrTitle" href="/book/show/16793.Stardust">Stardust</a>)
-              </div>
-"""
-
-markup_1 = f"""<table class="tableList">
-<tbody>
-    <tr>
-        <td>
-            {quote_element_1}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            {quote_element_2}
-        </td>
-    </tr>
-</tbody>
-</table>
-"""
-
-markup_2 = """<table class="tableList">
-<tbody>
-    <tr>
-        <td>
-            <div>Lorem ipsum</div>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <div>Lorem ipsum</div>
-        </td>
-    </tr>
-</tbody>
-</table>
-"""
-
-soup_1 = BeautifulSoup(markup_1, "html.parser")
-soup_2 = BeautifulSoup(markup_2, "html.parser")
 # ** ---------------------------- Get Page Tests ---------------------------- ** #
 
 
@@ -79,26 +28,6 @@ def test_get_page_with_invalid_url() -> None:
 
 
 # ** ---------------------------- Extract Quote Elements Tests ---------------------------- ** #
-def test_extract_quote_elements_with_valid_input() -> None:
-    """Should get list of BeautifulSoup objects.
-    """
-    return_value = web_scraper.extract_quote_elements(soup_1)
-
-    assert type(return_value) is ResultSet
-    assert len(return_value) == 2
-    assert type(return_value[0]) is Tag
-
-
-def test_extract_quote_elements_with_no_quotes() -> None:
-    """Should return empty result set.
-    """
-
-    return_value = web_scraper.extract_quote_elements(soup_2)
-
-    assert type(return_value) is ResultSet
-    assert len(return_value) == 0
-
-
 def test_extract_quote_elements_with_invalid_input() -> None:
     """Should return empty result set.
     """
@@ -115,22 +44,25 @@ def test_extract_quote_data_without_source() -> None:
     """Should return Quote Object with source set to None."""
 
     quote = web_scraper.extract_quote_data(
-        BeautifulSoup(quote_element_1, "html.parser"))
+        BeautifulSoup(quote_element_2, "html.parser"))
     assert type(quote) is Quote
     assert quote.get_text() == "Tomorrow may be hell, but today was a good writing day, and on the good writing days nothing else matters."
     assert quote.get_author() == "Neil Gaiman"
     assert quote.get_source() == None
+    assert quote.get_tags() == ["writing"]
 
 
 def test_extract_quote_data_with_source() -> None:
     """Should return Quote object with all properties set.
     """
     quote = web_scraper.extract_quote_data(
-        BeautifulSoup(quote_element_2, "html.parser"))
+        BeautifulSoup(quote_element_1, "html.parser"))
     assert type(quote) is Quote
-    assert quote.get_text() == "She says nothing at all, but simply stares upward into the dark sky and watches, with sad eyes, the slow dance of the infinite stars."
+    assert quote.get_text() == "Fairy tales are more than true: not because they tell us that dragons exist, but because they tell us that dragons can be beaten."
     assert quote.get_author() == "Neil Gaiman"
-    assert quote.get_source() == "Stardust"
+    assert quote.get_source() == "Coraline"
+    assert quote.get_tags() == ['books', 'dragons', 'fairy-tales',
+                                'inspirational', 'paraphrasing-g-k-chesterton']
 
 
 def test_extract_quote_data_with_invalid_input() -> None:

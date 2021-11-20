@@ -10,7 +10,7 @@ def test_insert_query_with_valid_input() -> None:
     """
 
     assert utils.insert_query(
-        "Neil Gaiman") == f"https://www.goodreads.com/search?page={PAGE_PLACEHOLDER}&q=Neil+Gaiman&search_type=quotes"
+        "Neil Gaiman") == f"https://www.goodreads.com/quotes/search?commit=Search&page={PAGE_PLACEHOLDER}&q=neil+gaiman&utf8=%E2%9C%93"
 
 
 def test_insert_query_without_input() -> None:
@@ -26,7 +26,7 @@ def test_insert_query_with_empty_input() -> None:
     """
 
     assert utils.insert_query(
-        "") == f"https://www.goodreads.com/search?page={PAGE_PLACEHOLDER}&q=&search_type=quotes"
+        "") == f"https://www.goodreads.com/quotes/search?commit=Search&page={PAGE_PLACEHOLDER}&q=&utf8=%E2%9C%93"
 
 
 def test_insert_query_with_base_input() -> None:
@@ -34,7 +34,7 @@ def test_insert_query_with_base_input() -> None:
     """
 
     assert utils.insert_query(
-        "Terry Pratchett", "prefix [QUERY] suffix") == "prefix Terry+Pratchett suffix"
+        "Terry Pratchett", "prefix [QUERY] suffix") == "prefix terry+pratchett suffix"
 
 
 # ** ---------------------------- Insert Page Number Tests ---------------------------- ** #
@@ -43,7 +43,7 @@ def test_insert_page_number_with_valid_input() -> None:
     """
 
     assert utils.insert_page_number(
-        5) == f"https://www.goodreads.com/search?page=5&q={QUERY_PLACEHOLDER}&search_type=quotes"
+        4) == f"https://www.goodreads.com/quotes/search?commit=Search&page=4&q={QUERY_PLACEHOLDER}&utf8=%E2%9C%93"
 
 
 def test_insert_page_number_without_input() -> None:
@@ -51,7 +51,7 @@ def test_insert_page_number_without_input() -> None:
     """
 
     assert utils.insert_page_number(
-    ) == f"https://www.goodreads.com/search?page=1&q={QUERY_PLACEHOLDER}&search_type=quotes"
+    ) == f"https://www.goodreads.com/quotes/search?commit=Search&page=1&q={QUERY_PLACEHOLDER}&utf8=%E2%9C%93"
 
 
 def test_insert_page_number_with_empty_input() -> None:
@@ -59,7 +59,7 @@ def test_insert_page_number_with_empty_input() -> None:
     """
 
     assert utils.insert_page_number(
-        "") == f"https://www.goodreads.com/search?page=1&q={QUERY_PLACEHOLDER}&search_type=quotes"
+        "") == f"https://www.goodreads.com/quotes/search?commit=Search&page=1&q={QUERY_PLACEHOLDER}&utf8=%E2%9C%93"
 
 
 def test_insert_page_number_with_base_url() -> None:
@@ -75,7 +75,7 @@ def test_strip_quotes_with_input_text_with_quotes() -> None:
     """Should return string without starting or ending quotes.
     """
 
-    assert utils.strip_quotes('"Hello World"') == "Hello World"
+    assert utils.strip_quotes('“Hello World”') == "Hello World"
 
 
 def test_strip_quotes_with_input_without_quotes() -> None:

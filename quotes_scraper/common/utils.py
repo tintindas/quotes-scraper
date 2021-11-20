@@ -13,8 +13,8 @@ def insert_query(query: str, base_url: str = BASE_URL) -> str:
     Returns:
         str: URL with query parameter set.
     """
-
-    query_words = query.split(" ")
+    query_lowercase = query.lower()
+    query_words = query_lowercase.split(" ")
     query_string = "+".join(query_words)
 
     result_url = base_url.replace(QUERY_PLACEHOLDER, query_string)
@@ -45,8 +45,9 @@ def strip_quotes(text: str) -> str:
 
     Args:
         text (str): Text to be formatted.
+        type (str): Single(') or double("). Specifies type of quotes to be stripped
 
     Returns:
         str: Input string minus any quotes at the start or the end of the string.
     """
-    return text.removeprefix('"').removesuffix('"')
+    return text.removeprefix('“').removesuffix('”')
