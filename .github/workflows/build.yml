@@ -36,6 +36,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Lint
-        run: pylint quote_scraper
+        run: pylint quotes_scraper
       - name: Test
         run: pytest
