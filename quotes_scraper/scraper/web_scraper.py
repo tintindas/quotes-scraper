@@ -1,10 +1,12 @@
 import logging
-from bs4.element import ResultSet, Tag
-from quotes_scraper.common.quote import Quote
 from typing import List
+
 import requests
 from bs4 import BeautifulSoup
+from bs4.element import ResultSet, Tag
+from quotes_scraper.common.quote import Quote
 from requests.exceptions import HTTPError
+
 from ..common.utils import strip_quotes
 
 
@@ -64,11 +66,3 @@ def extract_quote_data(quote_element: Tag) -> Quote:
     tag_elements = [tag.string for tag in tag_container.find_all("a")]
 
     return Quote(quote_text, author, source, tag_elements)
-
-
-page = get_page(
-    "https://www.goodreads.com/quotes/search?utf8=%E2%9C%93&q=neil+gaiman&commit=Search")
-quote_elements = extract_quote_elements(page)
-# print(quote_elements)
-quote_data = extract_quote_data(quote_elements[0])
-print(quote_data)
