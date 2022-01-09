@@ -1,9 +1,11 @@
-from quotes_scraper.common.quote import Quote
 from typing import List
+
+from bs4 import BeautifulSoup
 from bs4.element import ResultSet, Tag
 from pytest import raises
+from quotes_scraper.common.quote import Quote
 from requests import HTTPError
-from bs4 import BeautifulSoup
+
 from ..scraper import web_scraper
 from .mock_data.quotes_elements import quote_element_1, quote_element_2
 
@@ -46,10 +48,10 @@ def test_extract_quote_data_without_source() -> None:
     quote = web_scraper.extract_quote_data(
         BeautifulSoup(quote_element_2, "html.parser"))
     assert type(quote) is Quote
-    assert quote.get_text() == "Tomorrow may be hell, but today was a good writing day, and on the good writing days nothing else matters."
-    assert quote.get_author() == "Neil Gaiman"
-    assert quote.get_source() == None
-    assert quote.get_tags() == ["writing"]
+    assert quote.text == "Tomorrow may be hell, but today was a good writing day, and on the good writing days nothing else matters."
+    assert quote.author == "Neil Gaiman"
+    assert quote.source == None
+    assert quote.tags == ["writing"]
 
 
 def test_extract_quote_data_with_source() -> None:
@@ -58,11 +60,11 @@ def test_extract_quote_data_with_source() -> None:
     quote = web_scraper.extract_quote_data(
         BeautifulSoup(quote_element_1, "html.parser"))
     assert type(quote) is Quote
-    assert quote.get_text() == "Fairy tales are more than true: not because they tell us that dragons exist, but because they tell us that dragons can be beaten."
-    assert quote.get_author() == "Neil Gaiman"
-    assert quote.get_source() == "Coraline"
-    assert quote.get_tags() == ['books', 'dragons', 'fairy-tales',
-                                'inspirational', 'paraphrasing-g-k-chesterton']
+    assert quote.text == "Fairy tales are more than true: not because they tell us that dragons exist, but because they tell us that dragons can be beaten."
+    assert quote.author == "Neil Gaiman"
+    assert quote.source == "Coraline"
+    assert quote.tags == ['books', 'dragons', 'fairy-tales',
+                          'inspirational', 'paraphrasing-g-k-chesterton']
 
 
 def test_extract_quote_data_with_invalid_input() -> None:

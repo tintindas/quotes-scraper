@@ -1,6 +1,4 @@
-from .constants import BASE_URL
-from .constants import PAGE_PLACEHOLDER
-from .constants import QUERY_PLACEHOLDER
+from .constants import BASE_URL, PAGE_PLACEHOLDER, QUERY_PLACEHOLDER
 
 
 def insert_query(query: str, base_url: str = BASE_URL) -> str:

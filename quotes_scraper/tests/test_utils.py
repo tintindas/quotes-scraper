@@ -1,6 +1,7 @@
 from pytest import raises
+
 from ..common import utils
-from ..common.constants import PAGE_PLACEHOLDER, QUERY_PLACEHOLDER, BASE_URL
+from ..common.constants import BASE_URL, PAGE_PLACEHOLDER, QUERY_PLACEHOLDER
 
 # ** ---------------------------- Insert Query Tests ---------------------------- ** #
 
